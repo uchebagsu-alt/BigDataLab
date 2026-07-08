@@ -1,0 +1,4 @@
+"user_name","table_name","privilege_type"
+"data_engineer_trainee","sales","INSERT"
+"data_engineer_trainee","sales","SELECT"
+"data_engineer_trainee","sales","UPDATE"
