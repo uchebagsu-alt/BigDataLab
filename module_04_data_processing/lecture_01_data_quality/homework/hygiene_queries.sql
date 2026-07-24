@@ -1,3 +1,4 @@
+-- Удаление дублей
 WITH num_employees AS (
     SELECT
         ctid, 
@@ -7,7 +8,7 @@ WITH num_employees AS (
     FROM 
         silver.silver_employees
 )
-
+-- ctid - это адрес ячейки
 DELETE FROM silver.silver_employees
 WHERE ctid IN (
     SELECT 
@@ -16,12 +17,14 @@ WHERE ctid IN (
     WHERE num_row > 1
 );
 
+-- Обработка NULL
 DELETE FROM silver.silver_employees 
 WHERE employee_id IS NULL;
 
 DELETE FROM silver.silver_sales 
 WHERE employee_id IS NULL;
 
+-- Чистка "Сирот"
 DELETE FROM silver.silver_employees as e
 WHERE NOT EXISTS (
 	SELECT 
@@ -31,6 +34,7 @@ WHERE NOT EXISTS (
 	WHERE s.employee_id = e.employee_id
 );
 
+-- Обогащение данных (sales)
 UPDATE silver.silver_sales as s
 SET
 	shop_id = e.shop_id,
