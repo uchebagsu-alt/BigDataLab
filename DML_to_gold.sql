@@ -129,8 +129,8 @@ SELECT DISTINCT
     END AS day_part
 FROM generate_series('2000-01-01 00:00:00'::TIMESTAMP, '2000-01-01 23:59:59'::TIMESTAMP, '1 second'::interval) AS t;
 
-- Заполнение таблицы fact_sales
-- инкрементальная загрузка
+-- Заполнение таблицы fact_sales
+-- инкрементальная загрузка
 INSERT INTO gold.fact_sales(
     employee_sk, customer_sk, product_sk, category_sk, 
     shop_sk, quantity, discount, total_price, 
@@ -155,15 +155,13 @@ SELECT DISTINCT
 FROM silver.silver_sales src
 
 -- Подключение с изменения для получения сурогатных ключей
-JOIN gold.dim_category cat ON cat.category_id = src.category_id,
-JOIN gold.dim_customer cu ON cu.customer_id = src.customer_id,
-JOIN gold.dim_employee e ON e.employee_id = src.employee_id AND e.is_current = TRUE,
-JOIN gold.product pr ON pr.product_id = src.product_id,
-JOIN gold.shop sh ON sh.shop_id = src.shop_id,
+JOIN gold.dim_category cat ON cat.category_id = src.category_id
+JOIN gold.dim_customer cu ON cu.customer_id = src.customer_id
+JOIN gold.dim_employee e ON e.employee_id = src.employee_id AND e.is_current = TRUE
+JOIN gold.dim_product pr ON pr.product_id = src.product_id
+JOIN gold.dim_shop sh ON sh.shop_id = src.shop_id
 
 WHERE src.sales_timestamp > (
     SELECT COALESCE(MAX(sales_timestamp), '1900-01-01 00:00:00'::TIMESTAMP) 
     FROM gold.fact_sales
 );
-
---TODO: проверить на ошибки все файлы и продолжить делать

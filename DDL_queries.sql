@@ -118,3 +118,11 @@ CREATE TABLE gold.fact_sales (
     CONSTRAINT fk_sales_date FOREIGN KEY (date_key) REFERENCES gold.dim_date(date_key),
     CONSTRAINT fk_sales_time FOREIGN KEY (time_key) REFERENCES gold.dim_time(time_key)
 );
+
+-- Индексы для FK в тfact_tables
+CREATE INDEX idx_fact_sales_employee_sk ON gold.fact_sales(employee_sk);
+CREATE INDEX idx_fact_sales_customer_sk ON gold.fact_sales(customer_sk);
+CREATE INDEX idx_fact_sales_product_sk ON gold.fact_sales(product_sk);
+CREATE INDEX idx_fact_sales_category_sk ON gold.fact_sales(category_sk);
+CREATE INDEX idx_fact_sales_shop_sk ON gold.fact_sales(shop_sk);
+CREATE INDEX idx_fact_sales_date_key ON gold.fact_sales(date_key);
