@@ -1,0 +1,26 @@
+relationship d84a5286-0337-4a01-a2e6-ed602e825578
+	joinOnDateBehavior: datePartOnly
+	fromColumn: mart_customer_behavior.last_purchase_date
+	toColumn: LocalDateTable_11bdf458-afef-400f-8c28-705e804c4041.Date
+
+relationship baea1599-90c0-417e-854a-7c1961b73e68
+	joinOnDateBehavior: datePartOnly
+	fromColumn: mart_daily_anomaly.full_date
+	toColumn: LocalDateTable_301ae34e-7bcc-4622-a1ea-589b3ee1c2df.Date
+
+relationship AutoDetected_25593eb7-2357-469c-9ab6-066e452b1587
+	crossFilteringBehavior: bothDirections
+	fromColumn: mart_daily_anomaly.shop_sk
+	toColumn: mart_shop_daily.shop_sk
+
+relationship a05e03ae-9acf-4751-9099-062fc6f210e7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: mart_product_seasonality.Month_Date
+	toColumn: LocalDateTable_12844e09-adbf-4af0-9de3-a71b43697f00.Date
+
+relationship 7bba8cfb-3712-392e-03bb-384f0fd7f3e5
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: mart_daily_anomaly.'Start of Month'
+	toColumn: mart_product_seasonality.Month_Date
+
