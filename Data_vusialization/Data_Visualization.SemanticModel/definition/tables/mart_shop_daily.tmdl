@@ -1,0 +1,96 @@
+table mart_shop_daily
+	lineageTag: 60efd028-a4d1-4c6c-8556-64ce31f9658b
+
+	column shop_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: f1dd045d-6cbf-4305-9d36-44fd5714d6bf
+		summarizeBy: none
+		sourceColumn: shop_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column shop_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5b28c291-a88f-48e1-8922-6fb4df0d344a
+		summarizeBy: none
+		sourceColumn: shop_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column shop_address
+		dataType: string
+		lineageTag: 3ea7847e-64bf-486b-b9ec-dae71a31b265
+		summarizeBy: none
+		sourceColumn: shop_address
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 13a42dee-d5a4-4812-8c13-d62eede6ed60
+		summarizeBy: none
+		sourceColumn: country_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_name
+		dataType: string
+		lineageTag: 6fa54173-943c-40a0-97cb-ef5436084bbf
+		summarizeBy: none
+		sourceColumn: country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d9c8602-f49b-46ad-b14a-d4bd0d93ca9a
+		summarizeBy: none
+		sourceColumn: city_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_name
+		dataType: string
+		lineageTag: feb054d3-9989-4200-a71c-562e46a7dc94
+		summarizeBy: none
+		sourceColumn: city_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_zipcode
+		dataType: int64
+		formatString: 0
+		lineageTag: 35fdc019-fdf3-4441-aab5-a383030f390d
+		summarizeBy: none
+		sourceColumn: city_zipcode
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_daily_revenue
+		dataType: double
+		lineageTag: 5caf7df0-9d40-448c-a862-fee177f28b71
+		summarizeBy: none
+		sourceColumn: avg_daily_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition mart_shop_daily = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Al\Downloads\data-1785780791363.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Use First Row as Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Change Type" = Table.TransformColumnTypes(#"Use First Row as Headers",{{"shop_sk", Int64.Type}, {"shop_id", Int64.Type}, {"shop_address", type text}, {"country_id", Int64.Type}, {"country_name", type text}, {"city_id", Int64.Type}, {"city_name", type text}, {"city_zipcode", Int64.Type}, {"avg_daily_revenue", type number}})
+				in
+				    #"Change Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
