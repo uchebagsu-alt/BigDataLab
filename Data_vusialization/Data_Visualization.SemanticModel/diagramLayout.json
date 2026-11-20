@@ -1,0 +1,87 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 961,
+            "y": 293
+          },
+          "nodeIndex": "mart_customer_behavior",
+          "nodeLineageTag": "7d579a7c-2e5f-48a6-b7ff-df40afc87a97",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 89,
+            "y": 120
+          },
+          "nodeIndex": "mart_daily_anomaly",
+          "nodeLineageTag": "074164e8-a90e-4eed-9c58-a3a08b031205",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 957,
+            "y": 0
+          },
+          "nodeIndex": "mart_employee_performance",
+          "nodeLineageTag": "004fe4b3-3a20-46ca-9708-28a9719ed9fe",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 572,
+            "y": 0
+          },
+          "nodeIndex": "mart_product_seasonality",
+          "nodeLineageTag": "ee5783a5-b0a3-474c-8b8d-6994809c2092",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 377,
+            "y": 354
+          },
+          "nodeIndex": "mart_shop_daily",
+          "nodeLineageTag": "60efd028-a4d1-4c6c-8556-64ce31f9658b",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 2
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

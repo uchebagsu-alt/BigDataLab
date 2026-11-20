@@ -1,0 +1,106 @@
+table mart_product_seasonality
+	lineageTag: ee5783a5-b0a3-474c-8b8d-6994809c2092
+
+	column category_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: 4656e028-171d-4269-83be-aaf9614c4673
+		summarizeBy: sum
+		sourceColumn: category_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_name
+		dataType: string
+		lineageTag: c8b701cb-4d87-4877-a0fd-bcea1973e77e
+		summarizeBy: none
+		sourceColumn: category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_num
+		dataType: int64
+		formatString: 0
+		lineageTag: 50e3e16c-e82f-48ed-a317-9c65143644d1
+		summarizeBy: sum
+		sourceColumn: year_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_num
+		dataType: int64
+		formatString: 0
+		lineageTag: d6a9afb9-a011-4759-8c2c-8d2d6fda9db6
+		summarizeBy: sum
+		sourceColumn: month_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: e5e560f1-fa39-4625-9033-a2de7c5a8fe1
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue
+		dataType: double
+		lineageTag: efa99331-5b3a-4ea0-b3d2-d648aa80bd06
+		summarizeBy: sum
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 497f2dbb-861b-4ee1-8e23-93b66035f6b9
+		summarizeBy: sum
+		sourceColumn: total_quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: d3eae234-0881-4a8a-ba4e-311067bb5831
+		summarizeBy: sum
+		sourceColumn: sales_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month_Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a4affd55-a0af-4fc0-a78c-f8cd1b3cdad1
+		summarizeBy: none
+		sourceColumn: Month_Date
+
+		variation Variation
+			isDefault
+			relationship: a05e03ae-9acf-4751-9099-062fc6f210e7
+			defaultHierarchy: LocalDateTable_12844e09-adbf-4af0-9de3-a71b43697f00.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition mart_product_seasonality = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Al\Downloads\data-1785780782697.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Use First Row as Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Change Type" = Table.TransformColumnTypes(#"Use First Row as Headers",{{"category_sk", Int64.Type}, {"category_name", type text}, {"year_num", Int64.Type}, {"month_num", Int64.Type}, {"month_name", type text}, {"revenue", type number}, {"total_quantity", Int64.Type}, {"sales_rank", Int64.Type}}),
+				    #"Added Custom" = Table.AddColumn(#"Change Type", "Month_Date", each #date([year_num], [month_num], 1)),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"Month_Date", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

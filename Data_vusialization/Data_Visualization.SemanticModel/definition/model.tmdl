@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["mart_customer_behavior","mart_daily_anomaly","mart_employee_performance","mart_product_seasonality","mart_shop_daily"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table mart_customer_behavior
+ref table DateTableTemplate_35b50211-f253-4871-9920-cdf2d217dae3
+ref table LocalDateTable_11bdf458-afef-400f-8c28-705e804c4041
+ref table mart_daily_anomaly
+ref table LocalDateTable_301ae34e-7bcc-4622-a1ea-589b3ee1c2df
+ref table mart_employee_performance
+ref table mart_product_seasonality
+ref table mart_shop_daily
+ref table LocalDateTable_12844e09-adbf-4af0-9de3-a71b43697f00
+
+ref cultureInfo en-US
+
